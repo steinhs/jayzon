@@ -1,0 +1,67 @@
+{
+    "Name": "The Universe",
+    "Author": "Stephen Hawkins",
+    "Chapter": [
+        "Chapter 1: Relativity",
+        "Chapter 2: Time",
+        "Chapter 3: Universe"
+    ]
+}
+
+{"title": "The Universe", "author": "Stephen Hawkins" }
+
+{
+"
+t
+i
+t
+l
+e
+"
+:
+
+"
+T
+h
+e
+
+U
+n
+i
+v
+e
+r
+s
+e
+"
+,
+
+"
+a
+u
+t
+h
+o
+r
+"
+:
+
+"
+S
+t
+e
+p
+h
+e
+n
+
+H
+a
+w
+k
+i
+n
+s
+"
+
+}
