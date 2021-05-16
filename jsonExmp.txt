@@ -2,13 +2,15 @@
     "Name": "The Universe",
     "Author": "Stephen Hawkins",
     "Chapter": [
-        "Chapter 1: Relativity",
-        "Chapter 2: Time",
-        "Chapter 3: Universe"
+        "Relativity",
+        "Time",
+        "Universe"
     ]
 }
 
-{"title": "The Universe", "author": "Stephen Hawkins" }
+
+
+{"title": "The Universe", "author": "Stephen Hawkins", "chapters": [ "Space", "Time", "Universe", "Relativity" ] }
 
 {
 "

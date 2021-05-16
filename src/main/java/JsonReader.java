@@ -1,3 +1,9 @@
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PushbackReader;
+import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -7,31 +13,15 @@ import java.util.*;
  * */
 
 public class JsonReader {
+    private PushbackReader inp;
+    private Map<String, Object> args = new HashMap<>();
 
     public JsonReader() {
     }
 
-
     public static Object jsonToObject(String json) throws Exception {
-        System.out.println(json + "\n");
+        //System.out.println(json + "\n");
 
-        reader(json);
-
-        //Split each item by comma
-        //String[] words = json.split(",");
-
-        //Removes "'s
-        //json = json.replaceAll("\"", "");
-
-        /*for (String word : words){
-            System.out.println(word);
-        }
-
-         */
-        return null;
-    }
-
-    private static void reader(String json) throws Exception {
         HashMap<String, String> hashMap = new HashMap<String, String>();
         ArrayList arrayListTypes = new ArrayList();
 
@@ -92,10 +82,24 @@ public class JsonReader {
                 if (c==':')
                     colonBool=true;
             }
-
             System.out.println(hashMap + "\n");
 
+
+
         }
+
+        //Split each item by comma
+        //String[] words = json.split(",");
+
+        //Removes "'s
+        //json = json.replaceAll("\"", "");
+
+        /*for (String word : words){
+            System.out.println(word);
+        }
+
+         */
+        return null;
     }
 
 
