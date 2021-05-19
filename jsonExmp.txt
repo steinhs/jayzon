@@ -1,6 +1,39 @@
-{author=Stephen Hawkins, title=The Universe, chapters=null, country=null}
-{author=Stephen Hawkins, title=The Universe, chapters=null, country=null}
-{author=The Universe, title=Stephen Hawkins, chapters=[Space, Time, Universe, Relativity], country=null}
+{author=Stephen Hawkins, title=The Universe, chapters=[Space, Time, Universe, Relativity], country={name=Norway, continent=Europe, population=5200000}}
+{author=Stephen Hawkins, title=The Universe, chapters=[Space, Time, Universe, Relativity], country={name=Norway, continent=Europe, population=5200000}}
+
+
+
+
+
+
+
+
+
+
+
+
+{
+author=The Universe,
+author=The Universe,
+
+title=Stephen Hawkins,
+title=Stephen Hawkins,
+
+chapters=[Space, Time, Universe, Relativity],
+chapters=[Space, Time, Universe, Relativity ],
+
+country={name=Norway, continent=Europe, population=5200000}
+country={name=Norway, continent=Europe, population=5200000 }
+
+}
+{
+author=The Universe,
+title=Stephen Hawkins,
+chapters=[Space, Time, Universe, Relativity ],
+country={name=Norway, continent=Europe, population=5200000 }
+}
+
+
 
 {
     "Name": "The Universe",

@@ -18,14 +18,12 @@ public class JsonWriter {
         //ObjectMapper by Jackson
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = objectMapper.convertValue(object, Map.class);
-        System.out.println(map);
 
         int mapSize = map.size();
 
         boolean bracketBool = false;
 
         for (Map.Entry<String, Object> entry : map.entrySet()){
-            //System.out.println("Key: "+entry.getKey() + ", Value = " + entry.getValue());
 
             //Checks if value does not contain anything (null)
             if (entry.getValue()!=null){
@@ -60,8 +58,6 @@ public class JsonWriter {
             json = json.substring(0, json.length() - 1);
         }
         json = json + " }";
-
-        //System.out.println("\n-- Finished json string --\n"+json);
 
         return json;
     }
