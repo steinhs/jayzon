@@ -19,7 +19,18 @@ public class JsonReader {
     public JsonReader() {
     }
 
-    public static Object jsonToObject(String json) throws Exception {
+    public static Map jsonToMap(String string){
+
+        return null;
+    }
+
+    public static Object jsonToObject(String json){
+        Map<String, Object> jsonMap = jsonToMap(json);
+        System.out.println(jsonMap);
+        return null;
+    }
+
+    public static Object jsonToObjectTEMP(String json) throws Exception {
         //System.out.println(json + "\n");
 
         HashMap<String, String> hashMap = new HashMap<String, String>();

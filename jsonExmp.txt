@@ -10,7 +10,22 @@
 
 
 
-{"title": "The Universe", "author": "Stephen Hawkins", "chapters": [ "Space", "Time", "Universe", "Relativity" ] }
+{
+    "title": "The Universe",
+    "author": "Stephen Hawkins",
+    "chapters": [
+        "Space",
+        "Time",
+        "Universe",
+        "Relativity"
+    ],
+    "country":
+    {
+        "name": "Norway",
+        "continent": "Europe",
+        "population": "5200000"
+    }
+}
 
 {
 "
