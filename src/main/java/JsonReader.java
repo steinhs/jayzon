@@ -1,32 +1,122 @@
-import java.io.ByteArrayInputStream;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.source.tree.TypeCastTree;
+
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PushbackReader;
-import java.lang.reflect.Array;
-import java.nio.charset.StandardCharsets;
+import java.sql.Types;
 import java.util.*;
 
-/**
- * String2json: "String json = something json content"
- * Object object = JsonReader.jsonToJava(json);
- *
- * */
+        /*jsonMap.put("author", "Stephen Hawkins");
+        jsonMap.put("title", "The Universe");
+        jsonMap.put("chapters", "[Space, Time, Universe, Relativity]");
+        jsonMap.put("country", "{name=Norway, continent=Europe, population=5200000}");*/
 
 public class JsonReader {
-    private PushbackReader inp;
-    private Map<String, Object> args = new HashMap<>();
 
     public JsonReader() {
     }
 
-    public static Map jsonToMap(String string){
+    //TODO: JSON STRING TO MAP - RETURNS MAP
+    public static Map jsonToMap(String json) throws IOException{
+        Map<String, String> jsonMap = new HashMap<String, String>();
+        System.out.println("JSON STRING: " + json + "\n");
 
+        Boolean apostBool = false, valueBool = false, bracketBool = false, curlyBool = false;
+        String key = "", value = "";
+
+        if (json.charAt(0)!='{'){
+            throw new IOException("Can't identify as json. Does not begin with \"{\".");
+        } else {
+            for (int i = 0; i < json.length(); i++) {
+                char c = json.charAt(i);
+
+                //Checks if currently scanning a word
+                if (apostBool == true) {
+                    //Checks if currently scanning type or data
+                    if (valueBool == true) {
+                        //Checks if in brackets
+                        if (bracketBool.equals(true)){
+                            if (c == ']'){
+                                apostBool=false; valueBool=false; bracketBool=false;
+                                value = value.replaceAll("\"", "");
+                                key = key.replaceAll("\"", "");
+                                value=value+"]";
+                                jsonMap.put(key, value);
+                                value = "";
+                                key = "";
+                            } else {
+                                value=value+c;
+                            }
+                        } else if (curlyBool.equals(true)){
+                            if (c == '}'){
+                                apostBool=false; valueBool=false; curlyBool=false;
+                                value = value.replaceAll("\"", "");
+                                key = key.replaceAll("\"", "");
+                                value=value+"}";
+                                jsonMap.put(key, value);
+                                value = "";
+                                key = "";
+                            } else {
+                                value=value+c;
+                            }
+                        } else {
+                            value = value + c;
+                            //Check if done with word
+                            if (c == '"') {
+                                apostBool = false;
+                                valueBool = false;
+                                value = value.replaceAll("\"", "").replaceAll(":", "=");
+                                key = key.replaceAll("\"", "").replaceAll(":$", "=");
+                                jsonMap.put(key, value);
+                                value = "";
+                                key = "";
+                            }
+                        }
+
+                    } else {
+                        key = key + c;
+                        //Check if done with word
+                        if (c == '"') {
+                            apostBool = false;
+                        }
+                    }
+                    //Check if starting a word, and if it is type or data
+                } else {
+                    if (c == '"') {
+                        apostBool = true;
+                        if (valueBool == true)
+                            value = value + c;
+                        else
+                            key = key + c;
+                    }
+                }
+                //Checks if next word will be data
+                if (c == ':')
+                    valueBool = true;
+                if (c=='['){
+                    bracketBool=true;
+                    value=value+"[";
+                }
+                if (c=='{'){
+                    curlyBool=true;
+                    value=value+"{";
+                }
+
+            }
+        }
+        System.out.println("END MAP: "+ jsonMap);
         return null;
     }
 
-    public static Object jsonToObject(String json){
-        Map<String, Object> jsonMap = jsonToMap(json);
-        System.out.println(jsonMap);
+    //{author=The Universe, title=Stephen Hawkins, chapters=[Space, Time, Universe, Relativity], country={name=Norway, continent=Europe, population=5200000}}
+    //{country={name: Norway, continent: Europe, population: 5200000 }, author={Stephen Hawkins, title: The Universe, chapters: [[ Space, Time, Universe, Relativity ]}
+    //TODO: MAP TO OBJECT - RETURNS OBJECT
+    public static Object jsonToObject(String json) throws IOException {
+        Map<String, String> jsonMap = jsonToMap(json);
+
         return null;
     }
 

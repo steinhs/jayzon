@@ -13,7 +13,6 @@ public class Main {
         main.spacer();
 
 
-    /*
         //COMMENT: WRITE JSON STRING FROM OBJECT
         System.out.println("\n-------- OBJECT to JSON --------");
         List chapters = new ArrayList();
@@ -24,19 +23,18 @@ public class Main {
 
         //COMMENT: Object
         Book sh = new Book("The Universe", "Stephen Hawkins");
-        JsonWriter.mapToJson(sh);
-        String json1 = JsonWriter.mapToJson(sh);
+        //String json1 = JsonWriter.mapToJson(sh);
         //COMMENT: Object with array
         Book shc = new Book("The Universe", "Stephen Hawkins", chapters);
-        String json2 = JsonWriter.mapToJson(shc);
+        //String json2 = JsonWriter.mapToJson(shc);
         //COMMENT: Object with array and object
         Book shcc = new Book("The Universe", "Stephen Hawkins", chapters, new Country("Norway", "Europe", 5200000));
-        String json3 = JsonWriter.mapToJson(shcc);
+        //String json3 = JsonWriter.mapToJson(shcc);
 
-        System.out.println(json1);
-        System.out.println(json2);
-        System.out.println(json3);
-    */
+        //System.out.println(json1);
+        //System.out.println(json2);
+        //System.out.println(json3);
+
 
 
 
@@ -44,12 +42,15 @@ public class Main {
         System.out.println("\n-------- JSON to OBJECT --------");
 
         String jsonBasic = "{ \"author\": \"Stephen Hawkins\", \"title\": \"The Universe\" }";
-        String jsonArray = "{ \"author\": \"The Universe\", \"title\": \"Stephen Hawkins\", \"chapters\": [ \"Space\", \"Time\", \"Universe\", \"Relativity\" ] }";
-        String jsonArrayObject = "{ \"author\": \"The Universe\", \"title\": \"Stephen Hawkins\", \"chapters\": [ \"Space\", \"Time\", \"Universe\", \"Relativity\" ], \"country\": { \"name\": \"Norway\", \"continent\": \"Europe\", \"population\": \"5200000\" } }";
+        String jsonArray = "{ \"author\": \"Stephen Hawkins\", \"title\": \"The Universe\", \"chapters\": [ \"Space\", \"Time\", \"Universe\", \"Relativity\" ] }";
+        String jsonArrayObject = "{ \"author\": \"Stephen Hawkins\", \"title\": \"The Universe\", \"chapters\": [ \"Space\", \"Time\", \"Universe\", \"Relativity\" ], \"country\": { \"name\": \"Norway\", \"continent\": \"Europe\", \"population\": \"5200000\" } }";
 
-        Book book1 = (Book) JsonReader.jsonToObject(jsonBasic);
+        //Book book1 = (Book) JsonReader.jsonToObject(jsonBasic);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> map = objectMapper.convertValue(shcc, Map.class);
+        System.out.println("GOAL MAP: " + map  + "\n");
         //Book book2 = (Book) JsonReader.jsonToObject(jsonArray);
-        //Book book3 = (Book) JsonReader.jsonToObject(jsonArrayObject);
+        Book book3 = (Book) JsonReader.jsonToObject(jsonArrayObject);
 
 
     }

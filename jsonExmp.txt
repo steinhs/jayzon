@@ -1,3 +1,7 @@
+{author=Stephen Hawkins, title=The Universe, chapters=null, country=null}
+{author=Stephen Hawkins, title=The Universe, chapters=null, country=null}
+{author=The Universe, title=Stephen Hawkins, chapters=[Space, Time, Universe, Relativity], country=null}
+
 {
     "Name": "The Universe",
     "Author": "Stephen Hawkins",
