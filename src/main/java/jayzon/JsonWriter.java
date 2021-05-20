@@ -1,27 +1,17 @@
+package jayzon;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.Map;
-
-/**
- *
- *
- * */
 
 public class JsonWriter {
 
     public JsonWriter() {
     }
 
-    public static String mapToJson(Object object) {
+    //Converts map to json formatted string, which is returned
+    public static String mapToJson(Map<String, Object> map) {
         String json = "{ ";
         String value = "", key="";
-        //ObjectMapper by Jackson
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> map = objectMapper.convertValue(object, Map.class);
-
-        int mapSize = map.size();
-
-        boolean bracketBool = false;
 
         for (Map.Entry<String, Object> entry : map.entrySet()){
 
@@ -48,7 +38,6 @@ public class JsonWriter {
                 //Doesn't contain any special-characters.
                 else
                     json =  json + "\"" + key+"\": \"" + value + "\", ";
-
             }
         }
 
@@ -62,5 +51,16 @@ public class JsonWriter {
         return json;
     }
 
+    //Converts object to map to json
+    public static String objectToJson(Object object){
+        //Outsourced Jackson ObjectMapper framework to do the heavylifting of serializing an object to map.
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, Object> map = objectMapper.convertValue(object, Map.class);
+
+        //Converts map to json.
+        String json = mapToJson(map);
+
+        return json;
+    }
 
 }

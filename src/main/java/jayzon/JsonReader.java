@@ -1,25 +1,19 @@
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.source.tree.TypeCastTree;
+package jayzon;
 
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.sql.Types;
 import java.util.*;
-
-        /*jsonMap.put("author", "Stephen Hawkins");
-        jsonMap.put("title", "The Universe");
-        jsonMap.put("chapters", "[Space, Time, Universe, Relativity]");
-        jsonMap.put("country", "{name=Norway, continent=Europe, population=5200000}");*/
 
 public class JsonReader {
     public JsonReader() {
     }
 
+    //Main method for json to map conversion
     public static Map jsonToMap(String json) throws IOException{
-        Map<String, String> jsonMap = new LinkedHashMap<>();
+        Map<String, Object> jsonMap = new HashMap<>();
 
         Boolean apostBool = false, valueBool = false, bracketBool = false, curlyBool = false;
         String key = "", value = "";
@@ -94,7 +88,8 @@ public class JsonReader {
         return jsonMap;
     }
 
-    public static Map jsonToMap(String json, Map<String, String> jsonMap, String key, int y) throws IOException {
+    //Recursive for inner classes in json string. Called in jsonToMap(String) and jsonToMap(String,Map,String,int)
+    public static Map jsonToMap(String json, Map<String, Object> jsonMap, String key, int y) throws IOException {
         Boolean apostBool = false, valueBool = true, bracketBool = false, curlyBool = true;
         String value = "{";
 
@@ -176,14 +171,19 @@ public class JsonReader {
         return jsonMap;
     }
 
-    //TODO: MAP TO OBJECT - RETURNS OBJECT
+    //TODO: JSON TO MAP TO OBJECT - RETURNS OBJECT
     public static <T> T jsonToObject(String json, Class<T> tClass) throws IOException {
-        Map<String, String> finishedMap = jsonToMap(json);
+        //Converts json string to map
+        Map resultMap = jsonToMap(json);
+
+        //Convert map to object
+        //COMMENT: This section will deserialize map to an object which is defined by tClass.
+        // Solution to this have not been found and using other frameworks have yielded no success.
+
         ObjectMapper objectMapper = new ObjectMapper();
-
-        final T tClass1 = objectMapper.convertValue(finishedMap, tClass);
-
-        return tClass1;
+        objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        return objectMapper.convertValue(resultMap, tClass);
     }
 
 }
