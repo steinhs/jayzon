@@ -176,7 +176,7 @@ public class JsonReader {
         Map resultMap = jsonToMap(json);
 
         //Convert map to object
-        //COMMENT: This section will deserialize map to an object which is defined by tClass.
+        // This section will deserialize map to an object which is defined by tClass.
         // Solution to this have not been found and using other frameworks have yielded no success.
 
         ObjectMapper objectMapper = new ObjectMapper();
