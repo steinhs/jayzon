@@ -1,8 +1,5 @@
 package jayzon;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.List;
 import java.util.Map;
 
 public class JsonWriter {
@@ -11,14 +8,14 @@ public class JsonWriter {
     //Converts map to json formatted string, which is returned
     public static String mapToJson(Map<String, Object> map) {
         String json = "{ ";
-        String value = "", key="";
+        String value, key;
 
         for (Map.Entry<String, Object> entry : map.entrySet()){
 
             //Checks if value does not contain anything (null)
             if (entry.getValue()!=null){
                 value = entry.getValue().toString();
-                key = entry.getKey().toString();
+                key = entry.getKey();
 
                 //Check if value has brackets.
                 if (value.contains("[") && !(value.contains("{"))){
@@ -55,12 +52,10 @@ public class JsonWriter {
     public static String objectToJson(Object object){
         //Outsourced Jackson ObjectMapper framework to do the heavylifting of serializing an object to map.
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> map = objectMapper.convertValue(object, Map.class);
+        Map map = objectMapper.convertValue(object, Map.class);
 
         //Converts map to json.
-        String json = mapToJson(map);
-
-        return json;
+        return mapToJson(map);
     }
 
 

@@ -1,55 +1,53 @@
 package jayzon;
-
-import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.util.*;
 
 public class JsonReader {
 
-
     //Main method for json to map conversion
     public static Map jsonToMap(String json) throws IOException{
         Map<String, Object> jsonMap = new HashMap<>();
+        boolean apostBool = false, valueBool = false, bracketBool = false;
+        String key = "";
+        StringBuilder value = new StringBuilder();
 
-        Boolean apostBool = false, valueBool = false, bracketBool = false, curlyBool = false;
-        String key = "", value = "";
-
+        //Checks if correct json start of string
         if (json.charAt(0)!='{'){
             throw new IOException("Can't identify as json. Does not begin with \"{\".");
         } else {
+            //Run through json characters
             for (int i = 1; i < json.length(); i++) {
                 char c = json.charAt(i);
 
                 //Checks if currently scanning a word
-                if (apostBool == true) {
+                if (apostBool) {
                     //Checks if currently scanning type or data
-                    if (valueBool == true) {
+                    if (valueBool) {
                         //Checks if in brackets
-                        if (bracketBool.equals(true)){
+                        if (bracketBool){
                             if (c == ']'){
-                                apostBool=false; valueBool=false; bracketBool=false; curlyBool=false;
-                                value = value.replaceAll("\"", "").replaceAll(":", "=").trim();
+                                apostBool=false; valueBool=false; bracketBool=false;
+                                value = new StringBuilder(value.toString().replaceAll("\"", "").replaceAll(":", "=").trim());
                                 key = key.replaceAll("\"", "").replaceAll(":", "=").trim();
-                                value=value+"]";
-                                jsonMap.put(key, value);
-                                value = "";
+                                value.append("]");
+                                jsonMap.put(key, value.toString());
+                                value = new StringBuilder();
                                 key = "";
                             } else {
-                                value=value+c;
+                                value.append(c);
                             }
                         } else {
-                            value = value + c;
+                            value.append(c);
                             //Check if done with word
                             if (c == '"') {
                                 apostBool = false;
                                 valueBool = false;
-                                value = value.replaceAll("\"", "").replaceAll(":", "=").trim();
+                                value = new StringBuilder(value.toString().replaceAll("\"", "").replaceAll(":", "=").trim());
                                 key = key.replaceAll("\"", "").replaceAll(":", "=").trim();
-                                jsonMap.put(key, value);
-                                value = "";
+                                jsonMap.put(key, value.toString());
+                                value = new StringBuilder();
                                 key = "";
                             }
                         }
@@ -65,8 +63,8 @@ public class JsonReader {
                 } else {
                     if (c == '"') {
                         apostBool = true;
-                        if (valueBool == true)
-                            value = value + c;
+                        if (valueBool)
+                            value.append(c);
                         else
                             key = key + c;
                     }
@@ -76,9 +74,10 @@ public class JsonReader {
                     valueBool = true;
                 else if (c=='['){
                     bracketBool=true;
-                    value=value+"[";
+                    value.append("[");
                 }
                 else if (c=='{'){
+                    //Recursive method if inner classes/objects
                     jsonMap = jsonToMap(json, jsonMap, key, i);
                     return jsonMap;
                 }
@@ -89,18 +88,18 @@ public class JsonReader {
 
     //Recursive for inner classes in json string. Called in jsonToMap(String) and jsonToMap(String,Map,String,int)
     public static Map jsonToMap(String json, Map<String, Object> jsonMap, String key, int y) throws IOException {
-        Boolean apostBool = false, valueBool = true, bracketBool = false, curlyBool = true;
+        boolean apostBool = false, valueBool = true, bracketBool = false, curlyBool = true;
         String value = "{";
 
         for (int i = y+1; i < json.length(); i++) {
             char c = json.charAt(i);
 
             //Checks if currently scanning a word
-            if (apostBool == true) {
+            if (apostBool) {
                 //Checks if currently scanning type or data
-                if (valueBool == true) {
+                if (valueBool) {
                     //Checks if in brackets
-                    if (bracketBool.equals(true)){
+                    if (bracketBool){
                         if (c == ']'){
                             apostBool=false; valueBool=false; bracketBool=false;
                             value = value.replaceAll("\"", "").replaceAll(":", "=").trim();
@@ -112,7 +111,7 @@ public class JsonReader {
                         } else {
                             value=value+c;
                         }
-                    } else if (curlyBool.equals(true)){
+                    } else if (curlyBool){
                         if (c == '}'){
                             apostBool=false; valueBool=false; curlyBool=false;
                             value = value.replaceAll("\"", "").replaceAll(": ", "=").trim();
@@ -149,7 +148,7 @@ public class JsonReader {
             } else {
                 if (c == '"') {
                     apostBool = true;
-                    if (valueBool == true)
+                    if (valueBool)
                         value = value + c;
                     else
                         key = key + c;

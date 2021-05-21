@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The purpose of this class is just to see how the metods works.
+ * This is runnable and will print out resulting strings, maps and objects based off Book/Country classes.
+ * */
+
 public class Jayzon {
     public Jayzon() {
     }
@@ -14,6 +19,8 @@ public class Jayzon {
         Book simpleObject = new Book("The Universe", "Stephen Hawkins");
         Book arrayObject = new Book("Stephen Hawkins", "The Universe", chapters);
         Book arrayNestedObject = new Book("Stephen Hawkins", "The Universe", chapters, new Country("Norway", "Europe", 5200000));
+        System.out.println("'**************************");
+        System.out.println(arrayNestedObject);
 
         /** READ OBJECT TO JSON STRING (using dummy-book-objects) */
         System.out.println("\n-------- OBJECT to JSON --------");
@@ -37,11 +44,6 @@ public class Jayzon {
         System.out.println(book);
         Book book2 = JsonReader.jsonToObject(arrayJSON, Book.class);
         System.out.println(book2);
-        Book book3 = JsonReader.jsonToObject(arrayNestedJSON, Book.class);
-
-        System.out.println(book);
-        System.out.println(book2);
-        System.out.println(book3);
 
     }
 
