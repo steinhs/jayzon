@@ -8,8 +8,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class JsonReader {
-    public JsonReader() {
-    }
+
 
     //Main method for json to map conversion
     public static Map jsonToMap(String json) throws IOException{

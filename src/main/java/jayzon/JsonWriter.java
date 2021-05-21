@@ -1,12 +1,12 @@
 package jayzon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 import java.util.Map;
 
 public class JsonWriter {
 
-    public JsonWriter() {
-    }
 
     //Converts map to json formatted string, which is returned
     public static String mapToJson(Map<String, Object> map) {
@@ -62,5 +62,7 @@ public class JsonWriter {
 
         return json;
     }
+
+
 
 }

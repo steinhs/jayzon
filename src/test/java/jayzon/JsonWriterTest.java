@@ -1,48 +1,22 @@
 package jayzon;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class Jayzon {
-    public Jayzon() {
-    }
+import static org.junit.jupiter.api.Assertions.*;
 
-    public static void main(String[] args) throws IOException {
-        //Dummy-objects
-        List chapters = new ArrayList(); chapters.add("Space"); chapters.add("Time"); chapters.add("Universe"); chapters.add("Relativity");
-        Book simpleObject = new Book("The Universe", "Stephen Hawkins");
-        Book arrayObject = new Book("Stephen Hawkins", "The Universe", chapters);
-        Book arrayNestedObject = new Book("Stephen Hawkins", "The Universe", chapters, new Country("Norway", "Europe", 5200000));
+class JsonWriterTest {
 
-        /** READ OBJECT TO JSON STRING (using dummy-book-objects) */
-        System.out.println("\n-------- OBJECT to JSON --------");
-        String simpleObjectJSON = JsonWriter.objectToJson(simpleObject);
-        String arrayObjectJSON = JsonWriter.objectToJson(arrayObject);
-        String arrayNestedObjectJSON = JsonWriter.objectToJson(arrayNestedObject);
-        System.out.println(simpleObjectJSON + "\n" + arrayObjectJSON + "\n" + arrayNestedObjectJSON);
+    @org.junit.jupiter.api.Test
+    void objectToJson() {
+        ArrayList<String> chapters = new ArrayList();
+        chapters.add("Space");
+        chapters.add("Time");
+        chapters.add("Universe");
+        chapters.add("Relativity");
+        Book object = new Book("Stephen Hawkins", "The Universe", chapters, new Country("Norway", "Europe", 5200000));
 
-        /** READ JSON STRING TO OBJECT */
-        System.out.println("\n-------- JSON to MAP --------");
-        String simpleJSON = "{ \"author\": \"Stephen Hawkins\", \"title\": \"The Universe\" }";
-        String arrayJSON = "{ \"author\": \"Stephen Hawkins\", \"title\": \"The Universe\", \"chapters\": [ \"Space\", \"Time\", \"Universe\", \"Relativity\" ] }";
-        String arrayNestedJSON = "{ \"author\": \"Stephen Hawkins\", \"title\": \"The Universe\", \"chapters\": [ \"Space\", \"Time\", \"Universe\", \"Relativity\" ], \"country\": { \"name\": \"Norway\", \"continent\": \"Europe\", \"population\": \"5200000\" } }";
-        Map<String, Object> simpleJsonMap = JsonReader.jsonToMap(simpleJSON);
-        Map<String, Object> arrayJsonMap = JsonReader.jsonToMap(arrayJSON);
-        Map<String, Object> arrayNestedJsonMap = JsonReader.jsonToMap(arrayNestedJSON);
-        System.out.println(simpleJsonMap + "\n" + arrayJsonMap + "\n" + arrayNestedJsonMap);
-
-        System.out.println("\n-------- JSON to OBJECT --------");
-        Book book = JsonReader.jsonToObject(simpleJSON, Book.class);
-        System.out.println(book);
-        Book book2 = JsonReader.jsonToObject(arrayJSON, Book.class);
-        System.out.println(book2);
-        Book book3 = JsonReader.jsonToObject(arrayNestedJSON, Book.class);
-
-        System.out.println(book);
-        System.out.println(book2);
-        System.out.println(book3);
-
+        String json = JsonWriter.objectToJson(object);
     }
 
     private static class Book{
@@ -170,4 +144,6 @@ public class Jayzon {
                     '}';
         }
     }
+
+
 }
